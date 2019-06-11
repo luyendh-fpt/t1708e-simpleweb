@@ -10,6 +10,7 @@ public class StringUtil {
     private static Random rnd;
     private static final String SALTCHARS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890abcdefghijklmnopqrstuvwxyz";
     private static final int SALT_LENGTH = 7;
+    private static final String ALGORITH = "SHA-256";
 
     public static String generateSalt() {
         if (rnd == null) {
@@ -26,7 +27,7 @@ public class StringUtil {
     public static String hashPassword(String password, String salt) {
         try {
             if (md == null) {
-                md = MessageDigest.getInstance("SHA-256");
+                md = MessageDigest.getInstance(ALGORITH);
             }
             md.update(password.getBytes());
             md.update(salt.getBytes());

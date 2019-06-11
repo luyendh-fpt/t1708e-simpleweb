@@ -2,6 +2,7 @@ package simpleweb.controller;
 
 import simpleweb.entity.Student;
 import simpleweb.model.StudentModel;
+import simpleweb.util.ApplicationConstant;
 import simpleweb.util.StringUtil;
 
 import javax.servlet.ServletException;
@@ -34,7 +35,7 @@ public class LoginController extends HttpServlet {
         }
         if (StringUtil.comparePasswordWithSalt(password, student.getSalt(), student.getPassword())) {
             HttpSession session = req.getSession();
-            session.setAttribute("currentLoggedIn", student);
+            session.setAttribute(ApplicationConstant.LOGGED_IN_USER, student);
             resp.sendRedirect("/hello");
             return;
         }

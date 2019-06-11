@@ -18,6 +18,22 @@ public class Student {
         this.status = Status.ACTIVE.getValue();
     }
 
+    public boolean isUser() {
+        return this.role == Role.USER.getValue();
+    }
+
+    public boolean isStudent() {
+        return this.role == Role.STUDENT.getValue();
+    }
+
+    public boolean isAdmin() {
+        return this.role == Role.ADMIN.getValue();
+    }
+
+    public boolean isMember() {
+        return (this.isUser() || this.isStudent() || this.isAdmin());
+    }
+
     public enum Status {
         ACTIVE(1), DEACTIVE(0), DELETED(-1);
 

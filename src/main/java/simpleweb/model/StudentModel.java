@@ -21,6 +21,7 @@ public class StudentModel {
             ResultSet rs = preparedStatement.executeQuery();
             if (rs.next()) {
                 String rsUsername = rs.getString("username");
+                String rsFullname = rs.getString("fullName");
                 String rsPassword = rs.getString("password");
                 String rsEmail = rs.getString("email");
                 String rsSalt = rs.getString("salt");
@@ -30,6 +31,7 @@ public class StudentModel {
                 int rsStatus = rs.getInt("status");
                 Student student = new Student();
                 student.setUsername(rsUsername);
+                student.setFullName(rsFullname);
                 student.setPassword(rsPassword);
                 student.setAddress(rsAddress);
                 student.setEmail(rsEmail);
@@ -96,6 +98,24 @@ public class StudentModel {
             preparedStatement.setString(7, student.getPhone());
             preparedStatement.setInt(8, student.getRole());
             preparedStatement.setInt(9, student.getStatus());
+            preparedStatement.execute();
+            return true;
+        } catch (SQLException ex) {
+            LOGGER.severe(ex.getMessage());
+        }
+        return false;
+    }
+
+    public boolean update(Student student) {
+        try {
+            Connection cnn = ConnectionHelper.getConnection();
+            PreparedStatement preparedStatement = cnn.prepareStatement("update students set email = ?, fullName = ?, address = ?, phone = ?, role = ? where username = ?");
+            preparedStatement.setString(1, student.getEmail());
+            preparedStatement.setString(2, student.getFullName());
+            preparedStatement.setString(3, student.getAddress());
+            preparedStatement.setString(4, student.getPhone());
+            preparedStatement.setInt(5, student.getRole());
+            preparedStatement.setString(6, student.getUsername());
             preparedStatement.execute();
             return true;
         } catch (SQLException ex) {
